@@ -73,11 +73,11 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDTO> me(@AuthenticationPrincipal Optional<User> user) {
-        if (user.isEmpty()) {
+    public ResponseEntity<UserDTO> me(@AuthenticationPrincipal User user) {
+        if (user == null) {
             throw new MissingToken("É necessário enviar o token de acesso para acessar esta rota.");
         }
-        return ResponseEntity.ok(userMapper.UsertoDTO(user.get()));
+        return ResponseEntity.ok(userMapper.UsertoDTO(user));
     }
 
     // ROTAS PARA FOTO DE PERFIL //
