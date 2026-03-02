@@ -1,6 +1,7 @@
 package br.com.devisecenter.devise_center.modules.posts.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -83,7 +84,13 @@ public class PostService {
             throw new UnauthorizedOperation("Você não tem permissão para alterar este post");
         }
         if (file != null) {
-            Map<String, String> fileData = uploadService.updateFile(file, "/posts", post.getPublicId());
+            Map<String, String> fileData = new HashMap<>();
+            if (post.getPublicId() != null) {
+                fileData = uploadService.updateFile(file, "/posts", post.getPublicId());
+            } else {
+                fileData = uploadService.uploadFile(file, "/posts");
+            }
+
             post.setImageUrl(fileData.get("url"));
             post.setPublicId(fileData.get("publicId"));
         }
