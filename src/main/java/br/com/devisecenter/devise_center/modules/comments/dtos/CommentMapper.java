@@ -28,6 +28,8 @@ public class CommentMapper {
         commentResponse.setContent(comment.getContent());
         commentResponse.setAuthorId(comment.getAuthor().getUserId());
         commentResponse.setPostId(comment.getPost().getPostId());
+        commentResponse.setAuthor(comment.getAuthor().getUsername());
+        commentResponse.setProfileImgUrl(comment.getAuthor().getPictureUrl());
         if (comment.getParent() != null) {
             commentResponse.setParentId(comment.getParent().getCommentId());
         }

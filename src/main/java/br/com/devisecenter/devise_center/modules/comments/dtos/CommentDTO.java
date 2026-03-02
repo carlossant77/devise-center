@@ -14,6 +14,10 @@ public class CommentDTO {
 
     private UUID authorId;
 
+    private String author;
+
+    private String profileImgUrl;
+
     private UUID postId;
 
     private UUID parentId;
