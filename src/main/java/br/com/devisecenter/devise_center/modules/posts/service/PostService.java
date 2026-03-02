@@ -67,6 +67,8 @@ public class PostService {
 
     public void createPost(CreatePost dto, UUID authorId, String imageUrl, String publicId) {
         Post newPost = postMapper.DTOToPost(dto);
+        newPost.setAuthor(userRepository.findById(authorId).orElseThrow(
+                () -> new ResourceNotFound("Nenhum usuário encontrado com o ID informado.")));
         newPost.setImageUrl(imageUrl);
         newPost.setPublicId(publicId);
         newPost.setCreatedAt(LocalDateTime.now());
