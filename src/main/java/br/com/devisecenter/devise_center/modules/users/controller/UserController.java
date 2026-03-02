@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.devisecenter.devise_center.exceptions.exception.api.MissingProfileImage;
+import br.com.devisecenter.devise_center.exceptions.exception.api.MissingToken;
 import br.com.devisecenter.devise_center.modules.users.dtos.UpdateUser;
 import br.com.devisecenter.devise_center.modules.users.dtos.UserDTO;
 import br.com.devisecenter.devise_center.modules.users.dtos.UserMapper;
@@ -37,8 +38,9 @@ public class UserController {
 
     private UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping
@@ -71,8 +73,11 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDTO> me(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(userMapper.UsertoDTO(user));
+    public ResponseEntity<UserDTO> me(@AuthenticationPrincipal Optional<User> user) {
+        if (user.isEmpty()) {
+            throw new MissingToken("É necessário enviar o token de acesso para acessar esta rota.");
+        }
+        return ResponseEntity.ok(userMapper.UsertoDTO(user.get()));
     }
 
     // ROTAS PARA FOTO DE PERFIL //

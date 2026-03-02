@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.com.devisecenter.devise_center.exceptions.dto.ErrorResponse;
 import br.com.devisecenter.devise_center.exceptions.exception.api.MissingProfileImage;
+import br.com.devisecenter.devise_center.exceptions.exception.api.MissingToken;
 import br.com.devisecenter.devise_center.exceptions.exception.api.UsernameAlreadyExist;
 import br.com.devisecenter.devise_center.exceptions.exception.upload.ExternalServiceException;
 import br.com.devisecenter.devise_center.exceptions.exception.upload.SizeLimitExceeded;
@@ -198,6 +199,19 @@ public class GlobalHandlerException {
                 ErrorResponse response = new ErrorResponse(
                                 400,
                                 "Verifique se não há nenhum dado que deveria ter sido inserido faltando",
+                                request.getRequestURI(),
+                                LocalDateTime.now());
+
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+
+        @ExceptionHandler(MissingToken.class)
+        public ResponseEntity<ErrorResponse> handlerMissingToken(
+                        MissingToken ex,
+                        HttpServletRequest request) {
+                ErrorResponse response = new ErrorResponse(
+                                400,
+                                ex.getMessage(),
                                 request.getRequestURI(),
                                 LocalDateTime.now());
 
