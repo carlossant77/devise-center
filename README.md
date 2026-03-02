@@ -23,7 +23,7 @@ API REST para uma plataforma de posts e comentários, com autenticação JWT e u
 
 - Java 21+
 - Maven
-- PostgreSQL (ou conta no Supabase)
+- PostgreSQL (ou conta no Supabase/Neon.tech)
 - Conta no Cloudinary
 
 ## Instalação
