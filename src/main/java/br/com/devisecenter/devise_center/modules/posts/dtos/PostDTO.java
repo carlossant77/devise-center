@@ -20,6 +20,8 @@ public class PostDTO {
 
     private String author;
 
+    private String profileImgUrl;
+
     private LocalDateTime creationDate;
 
 }
