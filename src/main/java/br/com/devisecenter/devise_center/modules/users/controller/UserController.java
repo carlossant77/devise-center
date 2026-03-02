@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.devisecenter.devise_center.exceptions.exception.api.MissingProfileImage;
 import br.com.devisecenter.devise_center.modules.users.dtos.UpdateUser;
 import br.com.devisecenter.devise_center.modules.users.dtos.UserDTO;
+import br.com.devisecenter.devise_center.modules.users.dtos.UserMapper;
 import br.com.devisecenter.devise_center.modules.users.entity.User;
 import br.com.devisecenter.devise_center.modules.users.service.UserService;
 import jakarta.validation.Valid;
@@ -33,6 +34,8 @@ import jakarta.validation.Valid;
 public class UserController {
 
     private UserService userService;
+
+    private UserMapper userMapper;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -65,6 +68,11 @@ public class UserController {
     public ResponseEntity deleteUser(@PathVariable("id") UUID targetId, @AuthenticationPrincipal User user) {
         userService.deleteUser(targetId, user.getUserId());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> me(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(userMapper.UsertoDTO(user));
     }
 
     // ROTAS PARA FOTO DE PERFIL //
