@@ -216,14 +216,14 @@ class UserServiceUnitTest {
         service.setProfilePicture(file, userId, requesterId);
 
         assertEquals("http://image", user.getPictureUrl());
-        assertEquals("abc123", user.getPublidId());
+        assertEquals("abc123", user.getPublicId());
     }
 
     @Test
     @DisplayName("Should update a existent profile pic - everthing is ok")
     void shouldUpdateExistingProfilePicture() {
         MultipartFile file = mock(MultipartFile.class);
-        user.setPublidId("oldId");
+        user.setPublicId("oldId");
 
         Map<String, String> response = Map.of(
                 "url", "http://newimage",
@@ -236,7 +236,7 @@ class UserServiceUnitTest {
         service.setProfilePicture(file, userId, requesterId);
 
         assertEquals("http://newimage", user.getPictureUrl());
-        assertEquals("newId", user.getPublidId());
+        assertEquals("newId", user.getPublicId());
     }
 
     @Test
@@ -258,7 +258,7 @@ class UserServiceUnitTest {
     @Test
     @DisplayName("Should delete a existent profile pic - everthing is ok")
     void shouldRemoveProfilePicture() {
-        user.setPublidId("abc123");
+        user.setPublicId("abc123");
         when(repository.findById(userId)).thenReturn(Optional.of(user));
 
         service.removeProfilePic(userId, requesterId);
@@ -269,7 +269,7 @@ class UserServiceUnitTest {
     @Test
     @DisplayName("Should throw Exception: Resource Not Found")
     void shouldThrowWhenNoProfilePictureExists() {
-        user.setPublidId("");
+        user.setPublicId("");
 
         when(repository.findById(userId)).thenReturn(Optional.of(user));
 

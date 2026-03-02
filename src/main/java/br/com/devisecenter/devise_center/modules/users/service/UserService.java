@@ -92,7 +92,7 @@ public class UserService {
         User user = repository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFound("Usuário com o ID informado não encontrado"));
 
-        if (user.getPublidId() == null || user.getPublidId().isBlank()) {
+        if (user.getPublicId() == null || user.getPublicId().isBlank()) {
             repository.delete(user);
         } else {
             removeProfilePic(userId, requesterId);
@@ -112,14 +112,14 @@ public class UserService {
             throw new UnauthorizedOperation("Você não tem permissão para alterar este usuário");
         }
 
-        if (user.getPublidId() != null) {
-            Map<String, String> fileData = uploadService.updateFile(file, "/pictures", user.getPublidId());
+        if (user.getPublicId() != null) {
+            Map<String, String> fileData = uploadService.updateFile(file, "/pictures", user.getPublicId());
             user.setPictureUrl(fileData.get("url"));
-            user.setPublidId(fileData.get("publicId"));
+            user.setPublicId(fileData.get("publicId"));
         } else {
             Map<String, String> fileData = uploadService.uploadFile(file, "/pictures");
             user.setPictureUrl(fileData.get("url"));
-            user.setPublidId(fileData.get("publicId"));
+            user.setPublicId(fileData.get("publicId"));
         }
 
     }
@@ -130,10 +130,10 @@ public class UserService {
         }
         User user = repository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFound("Usuário com o ID informado não encontrado"));
-        if (user.getPublidId().isBlank()) {
+        if (user.getPublicId().isBlank()) {
             throw new ResourceNotFound("O usuário informado não possui foto de perfil");
         }
-        uploadService.deleteFile(user.getPublidId());
+        uploadService.deleteFile(user.getPublicId());
     }
 
 }

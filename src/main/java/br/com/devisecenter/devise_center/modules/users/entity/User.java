@@ -38,7 +38,7 @@ public class User implements UserDetails {
     private String pictureUrl;
 
     @Column(name = "public_id")
-    private String publidId;
+    private String publicId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
