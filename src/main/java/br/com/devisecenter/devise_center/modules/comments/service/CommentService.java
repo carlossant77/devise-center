@@ -81,7 +81,7 @@ public class CommentService {
     }
 
     public Page<CommentDTO> findReplies(UUID parentId, Pageable pageable) {
-        return repository.findByParent(parentId, pageable).map(commentMapper::CommentToDTO);
+        return repository.findByParent_CommentId(parentId, pageable).map(commentMapper::CommentToDTO);
     }
 
     @Transactional
