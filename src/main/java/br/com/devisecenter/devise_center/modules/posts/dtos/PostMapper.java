@@ -16,6 +16,7 @@ public class PostMapper {
     public PostDTO PostToDTO(Post post) {
         PostDTO dto = new PostDTO();
         dto.setAuthorId(post.getAuthor().getUserId());
+        dto.setAuthor(post.getAuthor().getUsername());
         dto.setContent(post.getContent());
         dto.setCreationDate(post.getCreatedAt());
         dto.setImageUrl(post.getImageUrl());

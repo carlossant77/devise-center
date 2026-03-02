@@ -18,6 +18,8 @@ public class PostDTO {
 
     private UUID authorId;
 
+    private String author;
+
     private LocalDateTime creationDate;
 
 }
