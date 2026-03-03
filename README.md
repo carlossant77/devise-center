@@ -6,6 +6,8 @@
 
 API REST para uma plataforma de posts e comentários, com autenticação JWT e upload de imagens via Cloudinary.
 
+Link para interface de testes da aplicação: https://devise-center-interface.onrender.com
+
 ## Funcionalidades
 
 - Cadastro e autenticação de usuários com JWT
@@ -121,6 +123,7 @@ Authorization: Bearer <token>
 |--------|------|------|-----------|
 | GET | `/users` | ❌ | Listar usuários |
 | GET | `/users/{id}` | ❌ | Buscar usuário por ID |
+| GET | `/users/me` | ✅ | Retorna dados referentes a você mesmo (utiliza o seu token para isso) |
 | PUT | `/users/{id}` | ✅ | Atualizar usuário |
 | DELETE | `/users/{id}` | ✅ | Deletar usuário |
 | PUT | `/users/{id}/pictures` | ✅ | Definir foto de perfil |
